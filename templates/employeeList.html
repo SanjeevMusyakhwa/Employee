@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="table-wrapper">
+    <div class="table-title">
+      <div class="row">
+        <div class="col-sm-6">
+          <h2>Manage <b>Employees</b></h2>
+          {% if request.user.is_authenticated %}
+         <a href="{% url 'create' %}" class="btn btn-primary">Create</a>
+              {% endif %}
+        </div>
+      </div>
+    </div>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>
+            <span class="custom-checkbox">
+              <input type="checkbox" id="selectAll">
+              <label for="selectAll"></label>
+            </span>
+          </th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Phone</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for employee in employees %}
+        <tr>
+          <td>
+            <span class="custom-checkbox">
+              <input type="checkbox" id="checkbox1" name="options[]" value="1">
+              <label for="checkbox1"></label>
+            </span>
+          </td>
+          <td>{{ employee.name }}</td>
+          <td>{{ employee.email }}</td>
+          <td>{{ employee.address }}</td>
+          <td>{{ employee.phone_number }}</td>
+          <td>
+            <a href="{% url 'update' employee.pk %}" class="edit" data-toggle="modal"><i class="material-icons"
+                data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+            <a href="{% url 'delete' employee.pk %}" class="delete" data-toggle="modal"><i class="material-icons"
+                data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}
